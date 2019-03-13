@@ -1,11 +1,8 @@
 class BoardService
-  class MinesGreaterThanBoardSize < StandardError
-  end
+  class MinesGreaterThanBoardSize < StandardError; end;
+  class MinesShouldBeGreaterThanZero < StandardError; end;
 
   class Bomb
-    def to_s
-      "*"
-    end
   end
 
   attr_reader :columns_size, :mines_amount, :rows_size
@@ -17,13 +14,17 @@ class BoardService
   end
 
   def initialize(columns_size:, rows_size:, mines_amount:)
-    @columns_size = columns_size
-    @rows_size = rows_size
-    @mines_amount = mines_amount
-    @cells_count = columns_size * rows_size
+    @columns_size = columns_size.to_i
+    @rows_size = rows_size.to_i
+    @mines_amount = mines_amount.to_i
+    @cells_count = @columns_size * @rows_size
 
-    if mines_amount > cells_count
-      raise MinesGreaterThanBoardSize.new("Board has #{cells_count} cells but received #{mines_amount}.")
+    if @mines_amount > @cells_count
+      raise MinesGreaterThanBoardSize.new("Board has #{@cells_count} cells but received #{@mines_amount} mines.")
+    end
+
+    if @mines_amount <= 0
+      raise MinesShouldBeGreaterThanZero.new("Board received #{@mines_amount} mines.")
     end
   end
 

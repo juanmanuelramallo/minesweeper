@@ -16,12 +16,15 @@ ActiveRecord::Schema.define(version: 2019_03_13_015003) do
   enable_extension "plpgsql"
 
   create_table "games", force: :cascade do |t|
-    t.datetime "start_time"
     t.datetime "end_time"
+    t.datetime "start_time", null: false
     t.integer "cells", array: true
-    t.integer "opened_cells", array: true
     t.integer "flagged_cells", array: true
-    t.integer "status"
+    t.integer "opened_cells", array: true
+    t.integer "status", default: 0, null: false
+    t.integer "rows_size", null: false
+    t.integer "columns_size", null: false
+    t.integer "mines_amount", null: false
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -30,9 +33,10 @@ ActiveRecord::Schema.define(version: 2019_03_13_015003) do
 
   create_table "users", force: :cascade do |t|
     t.string "name"
-    t.uuid "uuid"
+    t.uuid "uuid", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["uuid"], name: "index_users_on_uuid", unique: true
   end
 
 end

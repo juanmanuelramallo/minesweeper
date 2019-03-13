@@ -77,5 +77,15 @@ RSpec.describe BoardService do
         expect { subject }.to raise_error(BoardService::MinesGreaterThanBoardSize)
       end
     end
+
+    context "there are zero mines" do
+      let(:columns_size) { 2 }
+      let(:rows_size) { 4 }
+      let(:mines_amount) { 0 }
+
+      it "should fail" do
+        expect { subject }.to raise_error(BoardService::MinesShouldBeGreaterThanZero)
+      end
+    end
   end
 end
