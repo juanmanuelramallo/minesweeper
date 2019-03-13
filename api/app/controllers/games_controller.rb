@@ -15,6 +15,19 @@ class GamesController < ApplicationController
   end
 
   def update
+    puts "#{game_update_params}"
+    if @game.active?
+      if GameService.call(game: @game,
+                          opened_cell: game_update_params[:opened_cell],
+                          flagged_cells: game_update_params[:flagged_cells])
+
+        render json: @game, status: :ok
+      else
+        render json: @game.errors, status: :unprocessable_entity
+      end
+    else
+      render json: @game, status: :forbiden
+    end
   end
 
   private
@@ -24,7 +37,7 @@ class GamesController < ApplicationController
   end
 
   def game_update_params
-    params.require(:game).permit(:opened_cell)
+    params.require(:game).permit(:opened_cell, flagged_cells: [])
   end
 
   def set_game

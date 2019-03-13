@@ -18,9 +18,9 @@ ActiveRecord::Schema.define(version: 2019_03_13_015003) do
   create_table "games", force: :cascade do |t|
     t.datetime "end_time"
     t.datetime "start_time", null: false
-    t.integer "cells", array: true
-    t.integer "flagged_cells", array: true
-    t.integer "opened_cells", array: true
+    t.integer "cells", default: [], array: true
+    t.integer "flagged_cells", default: [], array: true
+    t.integer "opened_cells", default: [], array: true
     t.integer "status", default: 0, null: false
     t.integer "rows_size", null: false
     t.integer "columns_size", null: false

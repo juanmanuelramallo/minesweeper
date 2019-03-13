@@ -38,13 +38,15 @@ class BoardService
 
   def init_cells(cells_count, mines_amount)
     cells = Array.new(cells_count, 0)
-    pad_size = cells_count / mines_amount
-    current_index = 0
     bombs_indexes = []
     mines_amount.times do
-      current_index = rand(current_index + 1..current_index + pad_size - 1)
-      cells[current_index] = Bomb.new
-      bombs_indexes << current_index
+      bomb_index = rand(0..cells_count - 1)
+      while bombs_indexes.include? bomb_index
+        bomb_index = rand(0..cells_count - 1)
+      end
+
+      cells[bomb_index] = Bomb.new
+      bombs_indexes << bomb_index
     end
 
     [cells, bombs_indexes]

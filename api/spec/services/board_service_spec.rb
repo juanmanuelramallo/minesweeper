@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe BoardService do
-  describe ".create" do
+  describe ".call" do
     subject { BoardService.call(columns_size: columns_size, rows_size: rows_size, mines_amount: mines_amount) }
 
     context "2x2 game board with 1 mine" do
