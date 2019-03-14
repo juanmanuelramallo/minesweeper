@@ -1,5 +1,5 @@
 class GameService
-  class NoDataReceivedError < StandardError; end;
+  class NoDataReceivedError < RuntimeError; end;
 
   attr_reader :game, :opened_cell, :flagged_cells
   attr_accessor :cells, :opened_cells, :cells_count
@@ -51,6 +51,8 @@ class GameService
 
     opened_cells << index
     flagged_cells.delete_at flagged_cells.index(index) if flagged_cells.include?(index)
+
+    return if game.cells[index] != 0
 
     flood_fill(index + 1)
     flood_fill(index - 1)

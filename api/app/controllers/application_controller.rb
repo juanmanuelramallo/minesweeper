@@ -4,6 +4,6 @@ class ApplicationController < ActionController::API
   private
 
   def set_user
-    @current_user = User.find_by! uuid: request.headers["X-MINESWEEPER-USER-UUID"]
+    @current_user = User.find_by! uuid: request.headers["X-Minesweeper-User-Uuid"]
   end
 end

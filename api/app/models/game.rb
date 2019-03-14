@@ -8,6 +8,13 @@ class Game < ApplicationRecord
 
   before_validation :set_default_values, on: :create
 
+  def current_cells
+    board = Array.new(columns_size * rows_size, nil)
+    flagged_cells.each { |flag| board[flag] = "flag" }
+    opened_cells.each { |opened| board[opened] = cells[opened] }
+    board
+  end
+
   private
 
   def set_default_values

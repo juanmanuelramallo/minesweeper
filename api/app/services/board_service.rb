@@ -1,6 +1,6 @@
 class BoardService
-  class MinesGreaterThanBoardSize < StandardError; end;
-  class MinesShouldBeGreaterThanZero < StandardError; end;
+  class MinesGreaterThanBoardSize < RuntimeError; end;
+  class MinesShouldBeGreaterThanZero < RuntimeError; end;
 
   class Bomb
   end
