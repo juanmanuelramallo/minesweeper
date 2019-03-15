@@ -13,11 +13,11 @@ RSpec.describe BoardService do
         expect(subject.size).to eq 4
       end
 
-      it "should have 1 bomb" do
-        expect(subject.select { |cell| cell.is_a? BoardService::Bomb }.size).to eq 1
+      it "should have 1 mine" do
+        expect(subject.select { |cell| cell.is_a? BoardService::Mine }.size).to eq 1
       end
 
-      it "should have cells with value 1 around the bomb" do
+      it "should have cells with value 1 around the mine" do
         expect(subject.select { |cell| cell == 1 }.size).to eq 3
       end
     end
@@ -31,11 +31,11 @@ RSpec.describe BoardService do
         expect(subject.size).to eq 4
       end
 
-      it "should have 2 bombs" do
-        expect(subject.select { |cell| cell.is_a? BoardService::Bomb }.size).to eq 2
+      it "should have 2 mines" do
+        expect(subject.select { |cell| cell.is_a? BoardService::Mine }.size).to eq 2
       end
 
-      it "should have cells with value 2 around the bombs" do
+      it "should have cells with value 2 around the mines" do
         expect(subject.select { |cell| cell == 2 }.size).to eq 2
       end
     end
@@ -49,8 +49,8 @@ RSpec.describe BoardService do
         expect(subject.size).to eq 48
       end
 
-      it "should have 4 bombs" do
-        expect(subject.select { |cell| cell.is_a? BoardService::Bomb }.size).to eq 4
+      it "should have 4 mines" do
+        expect(subject.select { |cell| cell.is_a? BoardService::Mine }.size).to eq 4
       end
     end
 
@@ -63,8 +63,8 @@ RSpec.describe BoardService do
         expect(subject.size).to eq 32
       end
 
-      it "should have 4 bombs" do
-        expect(subject.select { |cell| cell.is_a? BoardService::Bomb }.size).to eq 4
+      it "should have 4 mines" do
+        expect(subject.select { |cell| cell.is_a? BoardService::Mine }.size).to eq 4
       end
     end
 

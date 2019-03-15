@@ -2,11 +2,10 @@ class BoardService
   class MinesGreaterThanBoardSize < RuntimeError; end;
   class MinesShouldBeGreaterThanZero < RuntimeError; end;
 
-  class Bomb
-  end
+  class Mine; end
 
   attr_reader :columns_size, :mines_amount, :rows_size
-  attr_accessor :bombs_indexes, :cells, :cells_count
+  attr_accessor :mines_indexes, :cells, :cells_count
 
 
   def self.call(**args)
@@ -29,8 +28,8 @@ class BoardService
   end
 
   def create
-    @cells, @bombs_indexes = init_cells(cells_count, mines_amount)
-    add_bomb_indicators
+    @cells, @mines_indexes = init_cells(cells_count, mines_amount)
+    add_mine_indicators
     cells
   end
 
@@ -38,30 +37,30 @@ class BoardService
 
   def init_cells(cells_count, mines_amount)
     cells = Array.new(cells_count, 0)
-    bombs_indexes = []
+    mines_indexes = []
     mines_amount.times do
-      bomb_index = rand(0..cells_count - 1)
-      while bombs_indexes.include? bomb_index
-        bomb_index = rand(0..cells_count - 1)
+      mine_index = rand(0..cells_count - 1)
+      while mines_indexes.include? mine_index
+        mine_index = rand(0..cells_count - 1)
       end
 
-      cells[bomb_index] = Bomb.new
-      bombs_indexes << bomb_index
+      cells[mine_index] = Mine.new
+      mines_indexes << mine_index
     end
 
-    [cells, bombs_indexes]
+    [cells, mines_indexes]
   end
 
-  def add_bomb_indicators
-    bombs_indexes.each do |bomb|
-      bomb_row = bomb / columns_size
+  def add_mine_indicators
+    mines_indexes.each do |mine|
+      mine_row = mine / columns_size
 
       [-columns_size, 0, columns_size].each do |rows|
-        current_row = bomb_row + (rows.negative? ? -1 : rows.zero? ? 0 : 1)
+        current_row = mine_row + (rows.negative? ? -1 : rows.zero? ? 0 : 1)
 
         [-1, 0, 1].each do |sum|
-          index = bomb + rows + sum
-          next if index < 0 || index >= cells_count || cells[index].is_a?(Bomb) || index / columns_size != current_row
+          index = mine + rows + sum
+          next if index < 0 || index >= cells_count || cells[index].is_a?(Mine) || index / columns_size != current_row
           cells[index] += 1
         end
       end

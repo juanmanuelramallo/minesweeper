@@ -14,7 +14,6 @@ export default class Game extends Component {
       loading: true
     }
     this.boardRef = React.createRef();
-    this.timerRef = React.createRef();
   }
 
   componentDidMount() {

@@ -5,7 +5,7 @@ import User from "./components/User/User";
 import Games from "./components/Games/Games";
 import Game from "./components/Game/Game";
 
-import { init } from "./client/Minesweeper";
+import { user } from "./client/Minesweeper";
 import { getCurrentUserUuid } from "./services/CurrentUserService";
 
 import './App.css';
@@ -26,7 +26,7 @@ class App extends Component {
   }
 
   fetchUser() {
-    init()
+    user()
       .then(response => {
         const user = response.data;
         this.setState({ user, selectedGameId: null });

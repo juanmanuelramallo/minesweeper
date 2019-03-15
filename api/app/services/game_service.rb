@@ -34,8 +34,8 @@ class GameService
       end_time = game.end_time
 
       status = if (opened_cells.size + game.mines_amount) == cells_count
-        "won"
         end_time = DateTime.now.utc
+        "won"
       else
         "active"
       end
