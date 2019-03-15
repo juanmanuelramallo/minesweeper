@@ -1,4 +1,5 @@
 # [Minesweeper](https://minesweeper-frontend-jm.herokuapp.com)
+Lives at https://minesweeper-frontend-jm.herokuapp.com/
 
 ![Minesweeper](minesweeper.png)
 
