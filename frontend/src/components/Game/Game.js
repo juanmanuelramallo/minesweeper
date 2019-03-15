@@ -78,7 +78,7 @@ export default class Game extends Component {
 
     let seconds;
     if (game.status !== "active") {
-      seconds = moment(game.startTime).unix() - moment(game.endTime).unix();
+      seconds = moment(game.endTime).unix() - moment(game.startTime).unix();
     } else {
       seconds = moment().unix() - moment(game.startTime).unix();
     }
