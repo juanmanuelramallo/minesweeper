@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 
 import SignUp from "./components/SignUp";
-import User from "./components/User";
-import Games from "./components/Games";
+import User from "./components/User/User";
+import Games from "./components/Games/Games";
+import Game from "./components/Game/Game";
 
 import { init } from "./client/Minesweeper";
 import { getCurrentUserUuid } from "./services/CurrentUserService";
@@ -14,19 +15,22 @@ class App extends Component {
     super();
     this.state = {
       user: null,
-      selectedGame: null
+      selectedGameId: null
     }
   }
 
   componentDidMount() {
     if (getCurrentUserUuid()) {
-      console.log("hay uuid");
-      init()
-        .then(response => {
-          const user = response.data;
-          this.setState({ user });
-        })
+      this.fetchUser();
     }
+  }
+
+  fetchUser() {
+    init()
+      .then(response => {
+        const user = response.data;
+        this.setState({ user, selectedGameId: null });
+      })
   }
 
   handleData = (data) => {
@@ -35,22 +39,33 @@ class App extends Component {
     })
   }
 
+  clearSelectedGame = () => {
+    this.fetchUser();
+  }
+
   render() {
-    const { user, selectedGame } = this.state;
+    const { user, selectedGameId } = this.state;
     return (
       <main className="minesweeper">
-        <h1 className="minesweeper-titke">Minesweeper</h1>
+        <h1>Minesweeper</h1>
 
         { !user &&
           <SignUp handleData={this.handleData}/>
         }
 
         { user &&
-          <User user={user} />
+          <User user={user} handleData={this.handleData} />
         }
 
-        { user && !selectedGame &&
-          <Games games={user.games} />
+        { user && !selectedGameId &&
+          <Games games={user.games} handleData={this.handleData} />
+        }
+
+        { selectedGameId &&
+          <>
+            <button type="button" onClick={this.clearSelectedGame}>Go back</button>
+            <Game selectedGameId={selectedGameId} handleData={this.handleData} />
+          </>
         }
       </main>
     );

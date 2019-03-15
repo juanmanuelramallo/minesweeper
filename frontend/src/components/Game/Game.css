@@ -1,0 +1,34 @@
+.game {
+
+}
+
+.game header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.board {
+  display: grid;
+  user-select: none;
+}
+
+.board button {
+  background: none;
+  border: 1px solid #ededed;
+  cursor: pointer;
+}
+
+.board button.opened {
+  background: #f7f7f7;
+  cursor: auto;
+}
+
+.board button:focus {
+  outline: none;
+}
+
+.board button:disabled {
+  cursor: not-allowed;
+  color: rgba(0, 0, 0, 0.84);
+}

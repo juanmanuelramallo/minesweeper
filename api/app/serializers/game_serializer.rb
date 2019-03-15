@@ -3,6 +3,7 @@ class GameSerializer < ActiveModel::Serializer
              :columns_size,
              :created_at,
              :end_time,
+             :flagged_cells,
              :id,
              :mines_amount,
              :rows_size,

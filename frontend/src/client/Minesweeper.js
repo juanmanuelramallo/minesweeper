@@ -9,24 +9,38 @@ const createUser = (name) => {
     user: {
       name
     }
-  })
+  });
 }
 
 const createGame = (gameOptions) => {
-  return axios.post("/games", gameOptions)
+  return axios.post("/games", gameOptions);
 }
 
-const openCell = (game, openedCell) => {
-  return axios.put(`/games/${game.id}`, {
+const game = (gameId) => {
+  return axios.get(`/games/${gameId}`);
+}
+
+const openCell = (openedCell, gameId) => {
+  return axios.put(`/games/${gameId}`, {
     game: {
       openedCell
+    }
+  });
+}
+
+const flagCells = (flaggedCells, gameId) => {
+  return axios.put(`/games/${gameId}`, {
+    game: {
+      flaggedCells
     }
   })
 }
 
 export {
-  init,
-  createUser,
   createGame,
+  createUser,
+  flagCells,
+  game,
+  init,
   openCell
 }

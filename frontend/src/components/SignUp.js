@@ -20,20 +20,22 @@ export default class SignUp extends Component {
     e.preventDefault();
     createUser(this.state.name)
       .then(response => {
-        response.json().then(user => {
-          setCurrentUserUuid(user.uuid);
-          this.props.handleData({ user });
-        })
+        const user = response.data;
+        setCurrentUserUuid(user.uuid);
+        this.props.handleData({ user });
       });
   }
 
   render() {
     return (
       <form className="sign-up" onSubmit={this.handleSubmit}>
+        <h2>Sign me up!</h2>
         <div className="input-group">
           <label htmlFor="name">Name</label>
           <input type="text" id="name" name="user[name]" onChange={this.handleName}/>
         </div>
+
+        <br/>
 
         <div className="sign-up__submit">
           <input type="submit" value="Let's play!"/>

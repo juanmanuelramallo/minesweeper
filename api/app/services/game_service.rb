@@ -28,17 +28,19 @@ class GameService
 
   def open_cell
     unless game.cells[opened_cell].is_a? Integer
-      game.update status: "lost"
+      game.update status: "lost", end_time: DateTime.now.utc
     else
       flood_fill(opened_cell)
+      end_time = game.end_time
 
       status = if (opened_cells.size + game.mines_amount) == cells_count
         "won"
+        end_time = DateTime.now.utc
       else
         "active"
       end
 
-      game.update opened_cells: opened_cells, status: status, flagged_cells: flagged_cells
+      game.update opened_cells: opened_cells, status: status, flagged_cells: flagged_cells, end_time: end_time
     end
   end
 
@@ -54,9 +56,11 @@ class GameService
 
     return if game.cells[index] != 0
 
-    flood_fill(index + 1)
-    flood_fill(index - 1)
-    flood_fill(index + game.columns_size)
-    flood_fill(index - game.columns_size)
+    current_row = index / game.columns_size
+
+    flood_fill(index + 1) if (index + 1) / game.columns_size == current_row
+    flood_fill(index - 1) if (index - 1) / game.columns_size == current_row
+    flood_fill(index + game.columns_size) if (index + game.columns_size) / game.columns_size == current_row + 1
+    flood_fill(index - game.columns_size) if (index - game.columns_size) / game.columns_size == current_row - 1
   end
 end

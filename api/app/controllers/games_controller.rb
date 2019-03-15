@@ -1,16 +1,25 @@
 class GamesController < ApplicationController
   before_action :set_game, only: [:update, :show]
 
-  def create
-    cells = BoardService.call(columns_size: game_params[:columns_size],
-                              rows_size: game_params[:rows_size],
-                              mines_amount: game_params[:mines_amount])
+  def show
+    render json: @game
+  end
 
-    game = @current_user.games.new game_params.merge(cells: cells)
-    if game.save
-      render json: game, status: :ok
-    else
-      render json: game.errors, status: :unprocessable_entity
+  def create
+    begin
+      cells = BoardService.call(columns_size: game_params[:columns_size],
+                                rows_size: game_params[:rows_size],
+                                mines_amount: game_params[:mines_amount])
+      game = @current_user.games.new game_params.merge(cells: cells)
+      if game.save
+        render json: game, status: :ok
+      else
+        render json: game.errors, status: :unprocessable_entity
+      end
+    rescue BoardService::MinesGreaterThanBoardSize
+      render json: { mines_amount: "can't be greater than board size" }, status: :bad_request
+    rescue BoardService::MinesShouldBeGreaterThanZero
+      render json: { mines_amount: "can't be zero" }, status: :bad_request
     end
   end
 
