@@ -28,7 +28,7 @@ To start the development environment run the following command (in the root dire
 [Frontend notes](/frontend/readme.md)
 
 ## Deployment
-Make sure to have the git remotes already configured for the api and the frontend (currently hosted in heroku).
+Make sure to have the git remotes (called `heroku-api` and `heroku-frontend`) already configured for the api and the frontend (currently hosted in heroku).
 From the root directoy:
 - Api: `git subtree push --prefix api heroku-api master`
 - Frontend: `git subtree push --prefix frontend heroku-frontend master`
