@@ -24,8 +24,8 @@ To start the development environment run the following command (in the root dire
 ```
 
 ## Notes
-[Api notes](/api/readme.md)
-[Frontend notes](/frontend/readme.md)
+- [Api notes](./api/README.md)
+- [Frontend notes](./frontend/README.md)
 
 ## Deployment
 Make sure to have the git remotes (called `heroku-api` and `heroku-frontend`) already configured for the api and the frontend (currently hosted in heroku).
